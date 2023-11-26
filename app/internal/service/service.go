@@ -139,7 +139,7 @@ func (s *ImageProcessingService) Validate(ctx context.Context,
 	if in.MinHeight != nil {
 		checked = true
 		if img.Bounds().Dy() < int(*in.MinHeight) {
-			msg := fmt.Sprintf("image has height bigger than min height, image height: %d min height: %d",
+			msg := fmt.Sprintf("image has height less than min height, image height: %d min height: %d",
 				img.Bounds().Dy(), *in.MinHeight)
 			return &image_service.ValidateResponce{ImageValid: false, Details: &msg}, nil
 		}
@@ -148,7 +148,7 @@ func (s *ImageProcessingService) Validate(ctx context.Context,
 	if in.MinWidth != nil {
 		checked = true
 		if img.Bounds().Dx() < int(*in.MinWidth) {
-			msg := fmt.Sprintf("image has width bigger than min width, image width: %d min width: %d",
+			msg := fmt.Sprintf("image has width less than min width, image width: %d min width: %d",
 				img.Bounds().Dx(), *in.MinWidth)
 			return &image_service.ValidateResponce{ImageValid: false, Details: &msg}, nil
 		}
