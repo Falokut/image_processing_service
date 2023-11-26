@@ -1,0 +1,23 @@
+version: '3.8'
+
+networks:
+  images_processing_service_network:
+    name: "images_processing_service_network"
+
+
+
+services:
+  images_processing_service:
+    image: falokut/image_processing_service_v1
+    hostname: images_processing_service
+    environment:
+      ENABLE_METRICS: false
+    ports:
+     - 9999:8080
+    networks:
+     - images_processing_service_network
+    volumes:
+     - ./docker/containers-configs/app-configs/:/configs
+    labels:
+         servicename: "images_processing_service"
+         org.label-schema.group: "monitoring"

@@ -1,0 +1,460 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Image processing service",
+    "version": "1.0",
+    "contact": {
+      "name": "Falokut",
+      "url": "https://github.com/Falokut",
+      "email": "timur.sinelnik@yandex.ru"
+    }
+  },
+  "tags": [
+    {
+      "name": "ImageProcessingServiceV1"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/blur": {
+      "post": {
+        "operationId": "ImageProcessingServiceV1_Blur",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          },
+          "500": {
+            "description": "Something went wrong.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceBlurRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ImageProcessingServiceV1"
+        ]
+      }
+    },
+    "/v1/crop": {
+      "post": {
+        "operationId": "ImageProcessingServiceV1_Crop",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          },
+          "500": {
+            "description": "Something went wrong.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceCropRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ImageProcessingServiceV1"
+        ]
+      }
+    },
+    "/v1/desaturate": {
+      "post": {
+        "operationId": "ImageProcessingServiceV1_Desaturate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          },
+          "500": {
+            "description": "Something went wrong.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceImage"
+            }
+          }
+        ],
+        "tags": [
+          "ImageProcessingServiceV1"
+        ]
+      }
+    },
+    "/v1/hue": {
+      "post": {
+        "operationId": "ImageProcessingServiceV1_Hue",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          },
+          "500": {
+            "description": "Something went wrong.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceHueRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ImageProcessingServiceV1"
+        ]
+      }
+    },
+    "/v1/resize": {
+      "post": {
+        "operationId": "ImageProcessingServiceV1_Resize",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apiHttpBody"
+            }
+          },
+          "500": {
+            "description": "Something went wrong.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceResizeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ImageProcessingServiceV1"
+        ]
+      }
+    },
+    "/v1/validate": {
+      "post": {
+        "operationId": "ImageProcessingServiceV1_Validate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceValidateResponce"
+            }
+          },
+          "500": {
+            "description": "Something went wrong.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/image_processing_serviceValidateRequest"
+            }
+          }
+        ],
+        "tags": [
+          "ImageProcessingServiceV1"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BlurRequestBlurMethod": {
+      "type": "string",
+      "enum": [
+        "Box",
+        "Gaussian"
+      ],
+      "default": "Box"
+    },
+    "apiHttpBody": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "The HTTP Content-Type header value specifying the content type of the body."
+        },
+        "data": {
+          "type": "string",
+          "format": "byte",
+          "description": "The HTTP request/response body as raw binary."
+        },
+        "extensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          },
+          "description": "Application specific response metadata. Must be set in the first response\nfor streaming APIs."
+        }
+      },
+      "description": "Message that represents an arbitrary HTTP body. It should only be used for\npayload formats that can't be represented as JSON, such as raw binary or\nan HTML page.\n\n\nThis message can be used both in streaming and non-streaming API methods in\nthe request as well as the response.\n\nIt can be used as a top-level request field, which is convenient if one\nwants to extract parameters from either the URL or HTTP template into the\nrequest fields and also want access to the raw HTTP body.\n\nExample:\n\n    message GetResourceRequest {\n      // A unique request id.\n      string request_id = 1;\n\n      // The raw HTTP body is bound to this field.\n      google.api.HttpBody http_body = 2;\n\n    }\n\n    service ResourceService {\n      rpc GetResource(GetResourceRequest)\n        returns (google.api.HttpBody);\n      rpc UpdateResource(google.api.HttpBody)\n        returns (google.protobuf.Empty);\n\n    }\n\nExample with streaming methods:\n\n    service CaldavService {\n      rpc GetCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n      rpc UpdateCalendar(stream google.api.HttpBody)\n        returns (stream google.api.HttpBody);\n\n    }\n\nUse of this type only changes how the request and response bodies are\nhandled, all other features will continue to work unchanged."
+    },
+    "image_processing_serviceBlurRequest": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/image_processing_serviceImage"
+        },
+        "blurRadius": {
+          "type": "number",
+          "format": "double"
+        },
+        "method": {
+          "$ref": "#/definitions/BlurRequestBlurMethod"
+        }
+      }
+    },
+    "image_processing_serviceCropRequest": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/image_processing_serviceImage"
+        },
+        "start_x": {
+          "type": "integer",
+          "format": "int64",
+          "title": "rectangle coordinate x0"
+        },
+        "start_y": {
+          "type": "integer",
+          "format": "int64",
+          "title": "rectangle coordinate y0"
+        },
+        "end_x": {
+          "type": "integer",
+          "format": "int64",
+          "title": "rectangle coordinate x1"
+        },
+        "end_y": {
+          "type": "integer",
+          "format": "int64",
+          "title": "rectangle coordinate y1"
+        }
+      }
+    },
+    "image_processing_serviceHueRequest": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/image_processing_serviceImage"
+        },
+        "hue": {
+          "type": "integer",
+          "format": "int32",
+          "title": "between -360 and 360"
+        }
+      }
+    },
+    "image_processing_serviceImage": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "string",
+          "format": "byte",
+          "title": "Image file as bytes (supports base64 encoding)"
+        }
+      }
+    },
+    "image_processing_serviceResampleFilter": {
+      "type": "string",
+      "enum": [
+        "Lanczos",
+        "CatmullRom",
+        "MitchellNetravali",
+        "Linear",
+        "Box",
+        "NearestNeighbor"
+      ],
+      "default": "Lanczos",
+      "description": " - Lanczos: A high-quality resampling filter for photographic images yielding sharp results.\n - CatmullRom: A sharp cubic filter that is faster than Lanczos filter while providing similar results.\n - MitchellNetravali: A cubic filter that produces smoother results with less ringing artifacts than CatmullRom.\n - Linear: Bilinear resampling filter, produces a smooth output. Faster than cubic filters.\n - Box: Simple and fast averaging filter appropriate for downscaling.\n\t\tWhen upscaling it's similar to NearestNeighbor.\n - NearestNeighbor: Fastest resampling filter, no antialiasing."
+    },
+    "image_processing_serviceResizeRequest": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/image_processing_serviceImage"
+        },
+        "resample_filter": {
+          "$ref": "#/definitions/image_processing_serviceResampleFilter"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "image_processing_serviceValidateRequest": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/image_processing_serviceImage"
+        },
+        "max_width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "max_height": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "min_width": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "min_height": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "supported_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "List of image types, checking for the occurrence of an image type in the list"
+        }
+      }
+    },
+    "image_processing_serviceValidateResponce": {
+      "type": "object",
+      "properties": {
+        "image_valid": {
+          "type": "boolean"
+        },
+        "details": {
+          "type": "string",
+          "title": "Returns when image not passed, a message describing why the image failed validation"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "A URL/resource name that uniquely identifies the type of the serialized\nprotocol buffer message. This string must contain at least\none \"/\" character. The last segment of the URL's path must represent\nthe fully qualified name of the type (as in\n`path/google.protobuf.Duration`). The name should be in a canonical form\n(e.g., leading \".\" is not accepted).\n\nIn practice, teams usually precompile into the binary all types that they\nexpect it to use in the context of Any. However, for URLs which use the\nscheme `http`, `https`, or no scheme, one can optionally set up a type\nserver that maps type URLs to message definitions as follows:\n\n* If no scheme is provided, `https` is assumed.\n* An HTTP GET on the URL must yield a [google.protobuf.Type][]\n  value in binary format, or produce an error.\n* Applications are allowed to cache lookup results based on the\n  URL, or have them precompiled into a binary to avoid any\n  lookup. Therefore, binary compatibility needs to be preserved\n  on changes to types. (Use versioned type names to manage\n  breaking changes.)\n\nNote: this functionality is not currently available in the official\nprotobuf release, and it is not used for type URLs beginning with\ntype.googleapis.com. As of May 2023, there are no widely used type server\nimplementations and no plans to implement one.\n\nSchemes other than `http`, `https` (or the empty scheme) might be\nused with implementation specific semantics."
+        }
+      },
+      "additionalProperties": {},
+      "description": "`Any` contains an arbitrary serialized protocol buffer message along with a\nURL that describes the type of the serialized message.\n\nProtobuf library provides support to pack/unpack Any values in the form\nof utility functions or additional generated methods of the Any type.\n\nExample 1: Pack and unpack a message in C++.\n\n    Foo foo = ...;\n    Any any;\n    any.PackFrom(foo);\n    ...\n    if (any.UnpackTo(\u0026foo)) {\n      ...\n    }\n\nExample 2: Pack and unpack a message in Java.\n\n    Foo foo = ...;\n    Any any = Any.pack(foo);\n    ...\n    if (any.is(Foo.class)) {\n      foo = any.unpack(Foo.class);\n    }\n    // or ...\n    if (any.isSameTypeAs(Foo.getDefaultInstance())) {\n      foo = any.unpack(Foo.getDefaultInstance());\n    }\n\n Example 3: Pack and unpack a message in Python.\n\n    foo = Foo(...)\n    any = Any()\n    any.Pack(foo)\n    ...\n    if any.Is(Foo.DESCRIPTOR):\n      any.Unpack(foo)\n      ...\n\n Example 4: Pack and unpack a message in Go\n\n     foo := \u0026pb.Foo{...}\n     any, err := anypb.New(foo)\n     if err != nil {\n       ...\n     }\n     ...\n     foo := \u0026pb.Foo{}\n     if err := any.UnmarshalTo(foo); err != nil {\n       ...\n     }\n\nThe pack methods provided by protobuf library will by default use\n'type.googleapis.com/full.type.name' as the type URL and the unpack\nmethods only use the fully qualified type name after the last '/'\nin the type URL, for example \"foo.bar.com/x/y.z\" will yield type\nname \"y.z\".\n\nJSON\n====\nThe JSON representation of an `Any` value uses the regular\nrepresentation of the deserialized, embedded message, with an\nadditional field `@type` which contains the type URL. Example:\n\n    package google.profile;\n    message Person {\n      string first_name = 1;\n      string last_name = 2;\n    }\n\n    {\n      \"@type\": \"type.googleapis.com/google.profile.Person\",\n      \"firstName\": \u003cstring\u003e,\n      \"lastName\": \u003cstring\u003e\n    }\n\nIf the embedded message type is well-known and has a custom JSON\nrepresentation, that representation will be embedded adding a field\n`value` which holds the custom JSON in addition to the `@type`\nfield. Example (for message [google.protobuf.Duration][]):\n\n    {\n      \"@type\": \"type.googleapis.com/google.protobuf.Duration\",\n      \"value\": \"1.212s\"\n    }"
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
