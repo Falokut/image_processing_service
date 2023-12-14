@@ -1,16 +1,18 @@
-FROM golang:1.21.4-alpine AS builder
+FROM golang:alpine AS builder
 
-WORKDIR /image_processing_service/go
+WORKDIR /app
 
-ADD app/  /image_processing_service/go
+COPY go.mod go.sum ./
+COPY  ./ ./
 
-RUN  go clean --modcache && go build -mod=readonly -o app/ cmd/server/app.go
+RUN go clean --modcache && go build -ldflags "-w" -mod=readonly -o /bin cmd/server/app.go
 
-FROM scratch
+FROM alpine
+RUN apk update && apk add wget
 
-COPY --from=builder  /image_processing_service/go/app bin/
+WORKDIR /
+COPY --from=builder  /bin /bin
 
-EXPOSE 8080:8080
-EXPOSE 7000:7000
+EXPOSE 8080
 
 CMD ["bin/app"]

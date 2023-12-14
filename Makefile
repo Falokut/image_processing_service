@@ -1,8 +1,8 @@
 project_name = image_processing_service
 api_version = v1
-protoc_out_dir = app/pkg/$(project_name)/$(api_version)/protos
-protoc_out_dir_win = app\pkg\$(project_name)\$(api_version)\protos
-proto_files_dir = app/proto/$(project_name)/$(api_version)
+protoc_out_dir = pkg/$(project_name)/$(api_version)/protos
+protoc_out_dir_win =pkg\$(project_name)\$(api_version)\protos
+proto_files_dir = proto/$(project_name)/$(api_version)
 
 protoc-clear:
 	IF EXIST "$(protoc_out_dir_win)" (rd $(protoc_out_dir_win) /q /s)
@@ -12,7 +12,7 @@ protoc-gen:
 	-I include/googleapis -I include/grpc-gateway \
 	--go_opt=M$(proto_files_dir)/$(project_name)_$(api_version).proto=$(protoc_out_dir) \
 	--go_opt=M$(proto_files_dir)/$(project_name)_$(api_version)_messages.proto=$(protoc_out_dir) \
-	--go_out=app/pkg --go-grpc_out=app/pkg \
+	--go_out=pkg --go-grpc_out=pkg \
    	$(project_name)_$(api_version).proto $(project_name)_$(api_version)_messages.proto -I $(proto_files_dir)
 
 gateway-gen:
