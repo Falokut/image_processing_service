@@ -4,7 +4,7 @@ go 1.21.4
 
 require (
 	github.com/Falokut/grpc_errors v1.0.0
-	github.com/Falokut/grpc_rest_server v1.0.1
+	github.com/Falokut/grpc_rest_server v1.0.3
 	github.com/anthonynsimon/bild v0.13.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
 	github.com/opentracing/opentracing-go v1.2.0
@@ -27,7 +27,7 @@ require github.com/disintegration/imaging v1.6.2
 
 require (
 	github.com/BurntSushi/toml v1.2.1 // indirect
-	github.com/Falokut/interceptors v1.0.1 // indirect
+	github.com/Falokut/interceptors v1.0.2 // indirect
 	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
