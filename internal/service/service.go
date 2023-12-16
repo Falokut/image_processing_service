@@ -102,8 +102,9 @@ func (s *ImageProcessingService) Validate(ctx context.Context,
 	img, format, err := s.decodeImage(ctx, in.Image.Image)
 	if err != nil {
 		msg := err.Error()
-		return &image_service.ValidateResponce{ImageValid: false, Details: &msg},
-			s.errorHandler.createErrorResponceWithSpan(span, err, "")
+		span.SetTag("grpc.status", status.Code(err))
+		ext.LogError(span, err)
+		return &image_service.ValidateResponce{ImageValid: false, Details: &msg}, err
 	}
 
 	if len(in.SupportedTypes) != 0 {
@@ -250,6 +251,7 @@ func (s *ImageProcessingService) decodeImage(ctx context.Context, img []byte) (i
 
 	decoded, Type, err := image_processing.DecodeImage(img)
 	if err != nil {
+		s.logger.Error(err)
 		return nil, nil, s.errorHandler.createErrorResponceWithSpan(span, ErrInvalidArgument, "can't decode image, data may be malformed")
 	}
 
@@ -263,7 +265,8 @@ func (s *ImageProcessingService) encodeImage(ctx context.Context, img image.Imag
 
 	encoded, err := image_processing.EncodeImage(img, mimeType.Extension())
 	if err != nil {
-		return []byte{}, s.errorHandler.createErrorResponceWithSpan(span, ErrInternal, err.Error())
+		s.logger.Error(err)
+		return []byte{}, s.errorHandler.createErrorResponceWithSpan(span, ErrInternal, "can't encode image")
 	}
 
 	span.SetTag("grpc.status", codes.OK)
