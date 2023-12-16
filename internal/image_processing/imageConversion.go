@@ -10,11 +10,11 @@ import (
 	"github.com/gabriel-vasile/mimetype"
 )
 
-func EncodeImage(img image.Image, Extension string) ([]byte, error) {
+func EncodeImage(img image.Image, extension string) ([]byte, error) {
 	buf := new(bytes.Buffer)
 	var err error
 
-	format, err := imaging.FormatFromExtension(Extension)
+	format, err := imaging.FormatFromExtension(extension)
 	if err != nil {
 		return []byte{}, err
 	}

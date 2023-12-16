@@ -101,9 +101,9 @@ func (s *ImageProcessingService) Validate(ctx context.Context,
 
 	img, format, err := s.decodeImage(ctx, in.Image.Image)
 	if err != nil {
-		msg := "can't decode image"
+		msg := err.Error()
 		return &image_service.ValidateResponce{ImageValid: false, Details: &msg},
-			s.errorHandler.createErrorResponceWithSpan(span, ErrInternal, msg)
+			s.errorHandler.createErrorResponceWithSpan(span, err, "")
 	}
 
 	if len(in.SupportedTypes) != 0 {
@@ -250,20 +250,20 @@ func (s *ImageProcessingService) decodeImage(ctx context.Context, img []byte) (i
 
 	decoded, Type, err := image_processing.DecodeImage(img)
 	if err != nil {
-		return nil, nil, s.errorHandler.createErrorResponceWithSpan(span, ErrInvalidArgument, err.Error())
+		return nil, nil, s.errorHandler.createErrorResponceWithSpan(span, ErrInvalidArgument, "can't decode image, data may be malformed")
 	}
 
 	span.SetTag("grpc.status", codes.OK)
 	return decoded, Type, nil
 }
 
-func (s *ImageProcessingService) encodeImage(ctx context.Context, img image.Image, Type *mimetype.MIME) ([]byte, error) {
+func (s *ImageProcessingService) encodeImage(ctx context.Context, img image.Image, mimeType *mimetype.MIME) ([]byte, error) {
 	span, _ := opentracing.StartSpanFromContext(ctx, "ImageProcessingService.encodeImage")
 	defer span.Finish()
 
-	encoded, err := image_processing.EncodeImage(img, Type.Extension())
+	encoded, err := image_processing.EncodeImage(img, mimeType.Extension())
 	if err != nil {
-		return []byte{}, s.errorHandler.createErrorResponceWithSpan(span, ErrInvalidArgument, err.Error())
+		return []byte{}, s.errorHandler.createErrorResponceWithSpan(span, ErrInternal, err.Error())
 	}
 
 	span.SetTag("grpc.status", codes.OK)

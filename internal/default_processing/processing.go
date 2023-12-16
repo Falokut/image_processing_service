@@ -49,7 +49,7 @@ func (p ImageProcessing) Desaturate(ctx context.Context, img image.Image) image.
 func (p ImageProcessing) Hue(ctx context.Context, img image.Image, hue int) image.Image {
 	span, _ := opentracing.StartSpanFromContext(ctx, "ImageProcessing.Hue")
 	defer span.Finish()
-	hue = hue % 360
+	hue %= 360
 	return adjust.Hue(img, hue)
 }
 

@@ -24,11 +24,6 @@ type Config struct {
 		ServerConfig metrics.MetricsServerConfig `yaml:"server_config"`
 	} `yaml:"prometheus"`
 
-	ImageService struct {
-		StorageAddr       string `yaml:"storage_addr" env:"IMAGE_STORAGE_ADDRESS"`
-		ImageResizeMethod string `yaml:"image_resize_method" env:"IMAGE_RESIZE_METHOD"`
-	} `yaml:"image_service"`
-
 	JaegerConfig jaeger.Config `yaml:"jaeger"`
 }
 
