@@ -31,6 +31,8 @@ if supported values is empty, then any type values are supported
 | healthcheck_port   |      | HEALTHCHECK_PORT  |   string   |     port for healthcheck| any valid port that is not occupied by other services. The string should not contain delimiters, only the port number|
 | host   |  listen    | HOST  |   string   |  ip address or host to listen   |  |
 | port   |  listen    | PORT  |   string   |  port to listen   | The string should not contain delimiters, only the port number|
+| max_request_size   |  listen    | MAX_REQUEST_SIZE  |   int32   |  max request size in mb, by default 4 mb   |only > 0|
+| max_response_size   |  listen    | MAX_RESPONSE_SIZE  |   int32   |  max response size in mb, by default 4 mb|only > 0|
 | server_mode   |  listen    | SERVER_MODE  |   string   | Server listen mode, Rest API, gRPC or both | GRPC, REST, BOTH|
 | enable_metrics   |      |   ENABLE_METRICS   | bool | enable metrics report or not, if true, prometheus and jaeger metrics configs will be ignored|  |
 |service_name|  prometheus    | PROMETHEUS_SERVICE_NAME | string |  service name, thats will show in prometheus  ||

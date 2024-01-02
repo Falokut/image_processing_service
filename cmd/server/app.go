@@ -13,8 +13,8 @@ import (
 	"github.com/Falokut/image_processing_service/internal/service"
 	image_service "github.com/Falokut/image_processing_service/pkg/image_processing_service/v1/protos"
 	jaegerTracer "github.com/Falokut/image_processing_service/pkg/jaeger"
-	"github.com/Falokut/image_processing_service/pkg/logging"
 	"github.com/Falokut/image_processing_service/pkg/metrics"
+	logging "github.com/Falokut/online_cinema_ticket_office.loggerwrapper"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/opentracing/opentracing-go"
 	"github.com/sirupsen/logrus"
@@ -73,6 +73,11 @@ func main() {
 	s.Shutdown()
 }
 
+const (
+	kb = 8 << 10
+	mb = kb << 10
+)
+
 func getListenServerConfig(cfg *config.Config) server.Config {
 	return server.Config{
 		Host:        cfg.Listen.Host,
@@ -86,5 +91,7 @@ func getListenServerConfig(cfg *config.Config) server.Config {
 			}
 			return image_service.RegisterImageProcessingServiceV1HandlerServer(ctx, mux, serv)
 		},
+		MaxRequestSize:  cfg.Listen.MaxRequestSize * mb,
+		MaxResponceSize: cfg.Listen.MaxResponseSize * mb,
 	}
 }
